@@ -7,205 +7,211 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
 
     <style>
         /* --- CSS 樣式設定開始 --- */
         :root {
-            /* 變數設定：間諜家家酒風格配色 */
-            --loid-green: #4A7C59;       /* 洛伊德西裝綠 */
-            --anya-pink: #F4CCD3;        /* 安妮亞髮色粉 */
-            --yor-red: #9E2A2B;          /* 約兒殺手紅 */
-            --bg-cream: #FDFBF0;         /* 復古米黃底色 */
-            --text-black: #333333;       /* 墨黑文字 */
-            --shadow-color: rgba(0,0,0,0.15);
+            /* 坂本日常風格配色 */
+            --saka-cyan: #00C2CB;     /* 標誌性的青藍色 */
+            --saka-black: #111111;    /* 極致黑 */
+            --saka-white: #FFFFFF;
+            --saka-red: #FF2E2E;      /* 衝擊紅 */
+            --bg-gray: #F0F0F0;
         }
 
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Zen Maru Gothic', sans-serif;
-            background-color: var(--bg-cream);
-            color: var(--text-black);
-            /* 普普風點點背景設定 */
-            background-image: radial-gradient(var(--loid-green) 15%, transparent 16%),
-                              radial-gradient(var(--loid-green) 15%, transparent 16%);
-            background-size: 40px 40px;
-            background-position: 0 0, 20px 20px;
-            opacity: 1;
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: var(--bg-gray);
+            color: var(--saka-black);
+            /* 背景：漫畫網點風格 */
+            background-image: radial-gradient(var(--saka-cyan) 20%, transparent 20%);
+            background-size: 20px 20px;
+            background-position: 0 0;
             min-height: 100vh;
+            overflow-x: hidden; /* 防止水平捲動 */
             display: flex;
-            justify-content: center;
-            align-items: center;
+            align-items: center; /* 垂直置中 */
         }
 
-        /* 主要白色卡片容器 */
+        /* 右下角的狗狗背景圖設定 */
+        .bg-dog {
+            position: fixed;
+            bottom: 0;
+            right: -20px; /* 稍微往右一點 */
+            width: 45vw;  /* 佔據螢幕寬度的 45% */
+            max-width: 500px; /* 最大寬度 */
+            min-width: 300px;
+            z-index: 1; /* 在背景之上，但在文字卡片之下(視情況調整) */
+            filter: drop-shadow(-5px -5px 0px var(--saka-white)) 
+                    drop-shadow(-8px -8px 0px var(--saka-black)); /* 雙重描邊效果 */
+            pointer-events: none; /* 讓滑鼠可以直接穿過圖片點擊到底下的東西 */
+        }
+
+        /* 左側的內容卡片 */
         .container {
-            background: #fff;
-            width: 90%;
-            max-width: 600px;
-            border-radius: 20px;
-            padding: 40px 20px;
-            text-align: center;
-            box-shadow: 10px 10px 0px var(--text-black); /* 漫畫風格的硬陰影 */
-            border: 3px solid var(--text-black);
-            margin: 20px;
+            background: var(--saka-white);
+            width: 85%;
+            max-width: 500px;
+            padding: 40px;
+            margin-left: 5%; /* 靠左側擺放 */
+            margin-top: 20px;
+            margin-bottom: 20px;
+            border: 4px solid var(--saka-black);
+            box-shadow: 15px 15px 0px var(--saka-black); /* 硬派黑色陰影 */
             position: relative;
-            overflow: hidden;
+            z-index: 10; /* 確保卡片浮在狗狗上面 */
         }
 
-        /* 頂部裝飾線條 */
-        .deco-line {
-            height: 10px;
-            background: repeating-linear-gradient(
-                45deg,
-                var(--yor-red),
-                var(--yor-red) 10px,
-                #fff 10px,
-                #fff 20px
-            );
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
+        /* 標題區裝飾 */
+        .title-box {
+            background: var(--saka-black);
+            color: var(--saka-cyan);
+            display: inline-block;
+            padding: 10px 20px;
+            transform: skew(-10deg); /* 傾斜變形，增加動感 */
+            margin-bottom: 20px;
+            border: 2px solid var(--saka-cyan);
         }
 
         h1 {
-            color: var(--loid-green);
+            margin: 0;
             font-weight: 900;
-            font-size: 2rem;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 0px var(--anya-pink);
-            letter-spacing: 2px;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+            font-style: italic;
+            transform: skew(10deg); /* 把文字轉正 */
         }
 
-        /* 圖片區塊設定 */
-        .mascot-img-container {
-            margin: 0 auto 30px auto;
-            width: 250px; /* 您可以調整這裡來改變圖片大小 */
-            height: auto;
-            border-radius: 50%; /* 圓形外框 */
-            border: 5px solid var(--anya-pink);
-            overflow: hidden;
-            background: white;
-            box-shadow: 5px 5px 0px var(--text-black);
-            transition: transform 0.3s ease;
-        }
-
-        .mascot-img-container:hover {
-            transform: scale(1.05) rotate(-3deg); /* 滑鼠移過去會稍微放大旋轉 */
-        }
-
-        .mascot-img-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* 確保圖片填滿圓形且不變形 */
-        }
-
-        /* 按鈕選單區域 */
-        .menu-grid {
-            display: grid;
-            grid-template-columns: 1fr; /* 手機版一行一個 */
-            gap: 15px;
-            padding: 0 20px;
-        }
-
-        @media (min-width: 480px) {
-            .menu-grid {
-                grid-template-columns: 1fr 1fr; /* 電腦版一行兩個 */
-            }
-        }
-
-        /* 按鈕樣式 */
-        .unit-link {
-            display: block;
-            text-decoration: none;
-            background-color: var(--loid-green);
-            color: white;
-            padding: 15px;
-            border-radius: 12px;
+        .subtitle {
             font-weight: 700;
-            font-size: 1.2rem;
-            border: 2px solid var(--text-black);
-            box-shadow: 4px 4px 0px var(--text-black); /* 按鈕陰影 */
-            transition: all 0.1s ease;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            border-left: 8px solid var(--saka-red);
+            padding-left: 15px;
+            line-height: 1.5;
+        }
+
+        /* 按鈕列表 */
+        .menu-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* 按鈕樣式 - 潮牌貼紙風格 */
+        .unit-link {
+            text-decoration: none;
+            background: var(--saka-white);
+            color: var(--saka-black);
+            padding: 18px 20px;
+            font-weight: 900;
+            font-size: 1.1rem;
+            border: 3px solid var(--saka-black);
             position: relative;
+            transition: all 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        /* 按鈕互動效果 */
+        /* 按鈕序號裝飾 */
+        .unit-link::before {
+            content: '>';
+            font-weight: 900;
+            color: var(--saka-red);
+            margin-right: 10px;
+        }
+
+        /* 按鈕互動 Hover */
         .unit-link:hover {
-            background-color: var(--yor-red); /* 滑鼠移上去變紅色 */
-            top: -2px;
-            left: -2px;
-            box-shadow: 6px 6px 0px var(--text-black);
+            background: var(--saka-cyan);
+            color: var(--saka-white);
+            transform: translate(-5px, -5px);
+            box-shadow: 5px 5px 0px var(--saka-black);
+        }
+        
+        .unit-link:hover::before {
+            color: var(--saka-white);
         }
 
-        .unit-link:active {
-            top: 2px;
-            left: 2px;
-            box-shadow: 2px 2px 0px var(--text-black);
-        }
-
-        /* 按鈕右上的裝飾小字（例如 NEW!） */
         .badge {
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            background: #FFD700;
-            color: black;
-            font-size: 0.8rem;
-            padding: 3px 8px;
-            border-radius: 10px;
-            border: 2px solid black;
-            transform: rotate(15deg);
+            background: var(--saka-red);
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 2px;
+            transform: rotate(5deg);
         }
 
         footer {
-            margin-top: 30px;
+            margin-top: 40px;
             font-size: 0.8rem;
-            color: #666;
+            font-weight: bold;
+            color: #888;
+            border-top: 2px dashed #ccc;
+            padding-top: 10px;
+        }
+
+        /* 手機版響應式調整 */
+        @media (max-width: 768px) {
+            body {
+                display: block; /* 手機版改為由上而下排列 */
+            }
+            
+            .bg-dog {
+                width: 60vw;
+                opacity: 0.9;
+                right: -10px;
+            }
+
+            .container {
+                width: auto;
+                margin: 30px 20px 250px 20px; /* 下方留白給狗狗 */
+            }
         }
         /* --- CSS 樣式設定結束 --- */
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="deco-line"></div>
-        
-        <h1>施老師的自然學習網站</h1>
+    <img src="dog.jpg" alt="背景狗狗" class="bg-dog">
 
-        <div class="mascot-img-container">
-            <img src="dog.jpg" alt="開心的黃金獵犬">
+    <div class="container">
+        <div class="title-box">
+            <h1>施老師的自然學習網站</h1>
+        </div>
+        
+        <div class="subtitle">
+            TARGET：學習目標確認。<br>
+            請選擇今日的任務單元。
         </div>
 
-        <p style="margin-bottom: 20px; font-weight: bold; color: #555;">
-            🌟 歡迎來到自然科學的奇妙世界！請選擇單元：
-        </p>
-
-        <div class="menu-grid">
+        <div class="menu-list">
             
             <a href="https://www.google.com" target="_blank" class="unit-link">
-                🌱 植物的生長
+                <span>UNIT 01. 植物生長</span>
             </a>
 
             <a href="#" class="unit-link">
-                🦋 昆蟲觀察日記
+                <span>UNIT 02. 昆蟲觀察</span>
             </a>
 
             <a href="#" class="unit-link">
-                ☁️ 天氣與雲朵
-                <span class="badge">NEW!</span>
+                <span>UNIT 03. 天氣觀測</span>
+                <span class="badge">HOT</span>
             </a>
 
             <a href="#" class="unit-link">
-                🔋 有趣的電路
+                <span>UNIT 04. 電路與磁鐵</span>
             </a>
 
             </div>
 
         <footer>
-            © Teacher Shih's Science Class
+            MISSION START // SCIENCE CLASS
         </footer>
     </div>
 
