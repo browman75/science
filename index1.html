@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>施老師的自然學習網站</title>
+    
+    <style>
+        /* --- Apple 極簡風格 CSS 開始 --- */
+        :root {
+            --bg-color: #F5F5F7;      /* Apple 官網常用的淺灰背景 */
+            --card-bg: #FFFFFF;       /* 純白卡片 */
+            --text-main: #1D1D1F;     /* 深黑灰文字 */
+            --text-sub: #86868B;      /* 次要文字灰色 */
+            --accent-blue: #0066CC;   /* 經典科技藍連結色 */
+            --radius: 20px;           /* 圓潤的邊角 */
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+            --shadow-md: 0 8px 24px rgba(0,0,0,0.08); /* 柔和的擴散陰影 */
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            /* 使用系統字體堆疊，確保在 Mac/iOS 上顯示 San Francisco，在 Windows 顯示 Segoe UI */
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            -webkit-font-smoothing: antialiased; /* 讓字體更清晰 */
+        }
+
+        /* 主要容器 */
+        .main-wrapper {
+            width: 90%;
+            max-width: 980px; /* Apple 內容的標準寬度限制 */
+            padding: 60px 20px;
+        }
+
+        /* 標題區域 */
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        /* 眉批小字 */
+        .eyebrow {
+            color: var(--text-sub);
+            font-weight: 600;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            letter-spacing: -0.02em; /* 緊縮字距，更現代 */
+            margin: 0;
+            line-height: 1.1;
+        }
+
+        /* 格狀連結區 (Bento Grid Layout) */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* 自動適應欄位 */
+            gap: 24px; /* 卡片間距 */
+        }
+
+        /* 卡片連結樣式 */
+        .card-link {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 30px;
+            text-decoration: none;
+            color: var(--text-main);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); /* Apple 風格的滑順動畫 */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 160px; /* 固定高度讓版面整齊 */
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0; /* 初始隱藏，由動畫顯示 */
+        }
+
+        /* 依序延遲動畫，讓卡片一張張浮現 */
+        .card-link:nth-child(1) { animation-delay: 0.1s; }
+        .card-link:nth-child(2) { animation-delay: 0.2s; }
+        .card-link:nth-child(3) { animation-delay: 0.3s; }
+        .card-link:nth-child(4) { animation-delay: 0.4s; }
+        /* 若新增更多，可自行複製增加 */
+
+        /* 卡片互動 Hover */
+        .card-link:hover {
+            transform: scale(1.02); /* 輕微放大 */
+            box-shadow: var(--shadow-md); /* 陰影加深 */
+        }
+
+        /* 卡片內的類別標籤 */
+        .card-tag {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-sub);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        /* 卡片標題 */
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 0;
+            line-height: 1.3;
+        }
+
+        /* 右下角的藍色箭頭圓圈 */
+        .icon-arrow {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            width: 32px;
+            height: 32px;
+            background: #F5F5F7;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-blue);
+            font-size: 1.2rem;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .card-link:hover .icon-arrow {
+            background: var(--accent-blue);
+            color: white;
+        }
+
+        footer {
+            margin-top: 80px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-sub);
+            border-top: 1px solid #E5E5E5;
+            padding-top: 20px;
+        }
+
+        /* 動畫定義 */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 手機版調整 */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            .main-wrapper { padding: 40px 20px; }
+            .card-link { height: auto; min-height: 120px; } /* 手機上高度自動 */
+        }
+        /* --- CSS 樣式設定結束 --- */
+    </style>
+</head>
+<body>
+
+    <div class="main-wrapper">
+        <header>
+            <div class="eyebrow">Natural Science</div>
+            <h1>施老師的<br>自然學習網站</h1>
+        </header>
+
+        <div class="grid-container">
+
+            <a href="https://browman75.github.io/digestion/" target="_blank" class="card-link">
+                <div>
+                    <div class="card-tag">Unit 01</div>
+                    <h2 class="card-title">人體的消化系統</h2>
+                </div>
+                <div class="icon-arrow">➝</div>
+            </a>
+
+            <a href="https://browman75.github.io/scale_course/" target="_blank" class="card-link">
+                <div>
+                    <div class="card-tag">Unit 02</div>
+                    <h2 class="card-title">尺度</h2>
+                </div>
+                <div class="icon-arrow">➝</div>
+            </a>
+
+            <a href="https://yihrulee.github.io/plant-transport/" target="_blank" class="card-link">
+                <div>
+                    <div class="card-tag">Unit 03</div>
+                    <h2 class="card-title">植物的運輸</h2>
+                </div>
+                <div class="icon-arrow">➝</div>
+            </a>
+
+            <a href="https://browman75.github.io/bio-ecosystem/" target="_blank" class="card-link">
+                <div>
+                    <div class="card-tag">Unit 04</div>
+                    <h2 class="card-title">生態系的種類</h2>
+                </div>
+                <div class="icon-arrow">➝</div>
+            </a>
+
+            </div>
+
+        <footer>
+            Copyright © Teacher Shih. All rights reserved.
+        </footer>
+    </div>
+
+</body>
+</html>
