@@ -24,7 +24,7 @@
             font-family: 'Roboto', 'Noto Sans TC', sans-serif;
             background-color: var(--saka-yellow);
             color: var(--saka-black);
-            /* 背景斜紋 */
+            /* 背景斜紋裝飾 */
             background-image: repeating-linear-gradient(
                 45deg,
                 transparent,
@@ -35,30 +35,10 @@
             min-height: 100vh;
             overflow-x: hidden;
             
-            /* 修正：移除 Flexbox，改用傳統佈局確保內容一定會出現 */
-            display: block; 
-            position: relative;
-        }
-
-        /* --- 狗狗背景圖 --- */
-        .bg-dog {
-            position: fixed;
-            /* 層級設為 0，確保在最底層 */
-            z-index: 0; 
-            pointer-events: none; 
-            
-            bottom: -10px;
-            right: -10px;
-            width: 25vw;      
-            max-width: 300px; 
-            min-width: 180px;
-            
-            /* 左右顛倒 */
-            transform: scaleX(-1); 
-
-            /* --- 黑魔法區 --- */
-            /* 如果您的圖片有白底，這行指令會試著讓白色變透明 */
-            mix-blend-mode: multiply; 
+            /* 使用 Flexbox 讓卡片在畫面正中間 (垂直與水平置中) */
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         /* --- 主要內容卡片 --- */
@@ -68,17 +48,16 @@
             max-width: 500px; 
             padding: 40px 30px;
             
-            /* 修正：使用 margin: auto 來置中，這是最穩定的做法 */
-            margin: 50px auto 150px auto; /* 上 50px，左右自動，下 150px (留空間給狗) */
+            /* 移除原本為了圖片留的邊距，改由 body 的 flexbox 控制置中 */
+            margin: 20px; 
             
             border: 5px solid var(--saka-black);
+            /* 銳利的黑色長陰影 */
             box-shadow: 12px 12px 0px var(--saka-orange); 
             position: relative;
-            
-            /* 層級設為 10，確保一定蓋在狗狗 (z-index: 0) 上面 */
-            z-index: 10; 
         }
 
+        /* 角落裝飾標籤 */
         .corner-tag {
             position: absolute;
             top: -15px;
@@ -92,6 +71,7 @@
             border: 2px solid var(--saka-yellow);
         }
 
+        /* 標題 */
         h1 {
             font-size: 2rem;
             line-height: 1.2;
@@ -101,6 +81,7 @@
             text-shadow: 3px 3px 0px #ddd;
         }
 
+        /* 分隔線 */
         .divider {
             height: 8px;
             background: repeating-linear-gradient(
@@ -120,6 +101,7 @@
             font-size: 1.1rem;
         }
 
+        /* 連結列表 */
         .menu-list {
             display: flex;
             flex-direction: column;
@@ -141,9 +123,10 @@
             transition: transform 0.1s, background 0.1s;
             position: relative;
             overflow: hidden;
-            -webkit-tap-highlight-color: transparent;
+            -webkit-tap-highlight-color: transparent; /* 移除手機點擊藍框 */
         }
 
+        /* 按鈕左側橘色條 */
         .unit-link::after {
             content: '';
             position: absolute;
@@ -154,6 +137,7 @@
             background: var(--saka-orange);
         }
 
+        /* 按鈕互動效果 */
         .unit-link:hover, .unit-link:active {
             background: var(--saka-white);
             color: var(--saka-black);
@@ -182,13 +166,11 @@
             transform: rotate(-1deg);
         }
 
-        /* 手機版特別調整 */
+        /* 手機版調整 */
         @media screen and (max-width: 600px) {
             .container {
-                width: 80%; 
+                width: 85%; 
                 padding: 30px 20px;
-                /* 手機上 margin 調整 */
-                margin: 30px auto 120px auto;
                 box-shadow: 8px 8px 0px var(--saka-orange);
             }
 
@@ -196,20 +178,15 @@
                 font-size: 1.6rem; 
             }
 
-            .bg-dog {
-                width: 35vw; 
-                max-width: 160px; 
-                bottom: -5px;
-                right: -5px;
-                opacity: 0.95;
+            .unit-link {
+                padding: 15px 15px;
+                font-size: 1rem;
             }
         }
         /* --- CSS 樣式設定結束 --- */
     </style>
 </head>
 <body>
-
-    <img src="dog.png" alt="背景狗狗" class="bg-dog">
 
     <div class="container">
         <div class="corner-tag">TEACHER SHIH</div>
