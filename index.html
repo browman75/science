@@ -7,31 +7,34 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@700;900&family=Roboto:ital,wght@1,900&display=swap" rel="stylesheet">
 
     <style>
         /* --- CSS 樣式設定開始 --- */
         :root {
-            /* 坂本日常風格配色 */
-            --saka-cyan: #00C2CB;     /* 標誌性的青藍色 */
-            --saka-black: #111111;    /* 極致黑 */
+            /* 坂本日常修正配色：黃、橘、黑 */
+            --saka-yellow: #FFDD00;   /* 鮮豔的黃色 */
+            --saka-orange: #FF5500;   /* 活力橘色 */
+            --saka-black: #000000;    /* 純黑 */
             --saka-white: #FFFFFF;
-            --saka-red: #FF2E2E;      /* 衝擊紅 */
-            --bg-gray: #F0F0F0;
         }
 
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Noto Sans TC', sans-serif;
-            background-color: var(--bg-gray);
+            font-family: 'Roboto', 'Noto Sans TC', sans-serif;
+            background-color: var(--saka-yellow);
             color: var(--saka-black);
-            /* 背景：漫畫網點風格 */
-            background-image: radial-gradient(var(--saka-cyan) 20%, transparent 20%);
-            background-size: 20px 20px;
-            background-position: 0 0;
+            /* 背景：黃色底加上微弱的橘色斜紋，增加速度感 */
+            background-image: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255, 85, 0, 0.1) 10px,
+                rgba(255, 85, 0, 0.1) 20px
+            );
             min-height: 100vh;
-            overflow-x: hidden; /* 防止水平捲動 */
+            overflow-x: hidden;
             display: flex;
             align-items: center; /* 垂直置中 */
         }
@@ -40,136 +43,158 @@
         .bg-dog {
             position: fixed;
             bottom: 0;
-            right: -20px; /* 稍微往右一點 */
-            width: 45vw;  /* 佔據螢幕寬度的 45% */
-            max-width: 500px; /* 最大寬度 */
-            min-width: 300px;
-            z-index: 1; /* 在背景之上，但在文字卡片之下(視情況調整) */
-            filter: drop-shadow(-5px -5px 0px var(--saka-white)) 
-                    drop-shadow(-8px -8px 0px var(--saka-black)); /* 雙重描邊效果 */
-            pointer-events: none; /* 讓滑鼠可以直接穿過圖片點擊到底下的東西 */
+            right: -30px;
+            width: 45vw;
+            max-width: 550px;
+            min-width: 320px;
+            z-index: 1;
+            /* 加上白色與黑色的雙層描邊，像貼紙一樣 */
+            filter: drop-shadow(0px 0px 0px var(--saka-white)) 
+                    drop-shadow(-5px -5px 0px var(--saka-white))
+                    drop-shadow(-8px -8px 0px var(--saka-black)); 
+            pointer-events: none;
         }
 
-        /* 左側的內容卡片 */
+        /* 左側的主要內容卡片 */
         .container {
             background: var(--saka-white);
             width: 85%;
-            max-width: 500px;
-            padding: 40px;
-            margin-left: 5%; /* 靠左側擺放 */
+            max-width: 520px;
+            padding: 40px 30px;
+            margin-left: 5%; /* 靠左配置 */
             margin-top: 20px;
             margin-bottom: 20px;
-            border: 4px solid var(--saka-black);
-            box-shadow: 15px 15px 0px var(--saka-black); /* 硬派黑色陰影 */
+            border: 5px solid var(--saka-black);
+            /* 銳利的黑色長陰影 */
+            box-shadow: 12px 12px 0px var(--saka-orange); 
             position: relative;
-            z-index: 10; /* 確保卡片浮在狗狗上面 */
+            z-index: 10;
         }
 
-        /* 標題區裝飾 */
-        .title-box {
+        /* 裝飾用的角落標籤 */
+        .corner-tag {
+            position: absolute;
+            top: -15px;
+            left: -15px;
             background: var(--saka-black);
-            color: var(--saka-cyan);
-            display: inline-block;
-            padding: 10px 20px;
-            transform: skew(-10deg); /* 傾斜變形，增加動感 */
-            margin-bottom: 20px;
-            border: 2px solid var(--saka-cyan);
-        }
-
-        h1 {
-            margin: 0;
+            color: var(--saka-yellow);
+            padding: 5px 15px;
             font-weight: 900;
-            font-size: 1.8rem;
-            letter-spacing: 1px;
             font-style: italic;
-            transform: skew(10deg); /* 把文字轉正 */
+            font-size: 0.9rem;
+            border: 2px solid var(--saka-yellow);
         }
 
-        .subtitle {
-            font-weight: 700;
+        /* 標題設計 */
+        h1 {
+            font-size: 2rem;
+            line-height: 1.2;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            font-style: italic;
+            text-shadow: 3px 3px 0px #ddd;
+        }
+
+        /* 標題下方的分隔線 */
+        .divider {
+            height: 8px;
+            background: repeating-linear-gradient(
+                -45deg,
+                var(--saka-black),
+                var(--saka-black) 10px,
+                var(--saka-yellow) 10px,
+                var(--saka-yellow) 20px
+            );
             margin-bottom: 30px;
-            font-size: 1.1rem;
-            border-left: 8px solid var(--saka-red);
-            padding-left: 15px;
-            line-height: 1.5;
+            border: 2px solid var(--saka-black);
         }
 
-        /* 按鈕列表 */
+        .intro-text {
+            font-weight: 700;
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+        }
+
+        /* 連結列表區域 */
         .menu-list {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 18px;
         }
 
-        /* 按鈕樣式 - 潮牌貼紙風格 */
+        /* 按鈕樣式設計 */
         .unit-link {
-            text-decoration: none;
-            background: var(--saka-white);
-            color: var(--saka-black);
-            padding: 18px 20px;
-            font-weight: 900;
-            font-size: 1.1rem;
-            border: 3px solid var(--saka-black);
-            position: relative;
-            transition: all 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: flex;
             justify-content: space-between;
             align-items: center;
-        }
-
-        /* 按鈕序號裝飾 */
-        .unit-link::before {
-            content: '>';
+            text-decoration: none;
+            background: var(--saka-black); /* 預設黑色背景 */
+            color: var(--saka-yellow);     /* 黃色文字 */
+            padding: 15px 20px;
             font-weight: 900;
-            color: var(--saka-red);
-            margin-right: 10px;
+            font-size: 1.2rem;
+            border: 3px solid var(--saka-black);
+            transition: transform 0.1s, background 0.1s;
+            position: relative;
+            overflow: hidden;
         }
 
-        /* 按鈕互動 Hover */
+        /* 按鈕左側的裝飾條 */
+        .unit-link::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 10px;
+            background: var(--saka-orange);
+        }
+
+        /* 按鈕互動 Hover 效果 */
         .unit-link:hover {
-            background: var(--saka-cyan);
-            color: var(--saka-white);
-            transform: translate(-5px, -5px);
-            box-shadow: 5px 5px 0px var(--saka-black);
-        }
-        
-        .unit-link:hover::before {
-            color: var(--saka-white);
+            background: var(--saka-white); /* 變白色背景 */
+            color: var(--saka-black);      /* 變黑色文字 */
+            transform: translateX(10px);   /* 向右突進 */
+            box-shadow: -5px 5px 0px var(--saka-black);
         }
 
-        .badge {
-            background: var(--saka-red);
-            color: white;
-            font-size: 0.7rem;
-            padding: 2px 6px;
-            border-radius: 2px;
-            transform: rotate(5deg);
+        /* 連結文字左邊距調整，避開裝飾條 */
+        .link-text {
+            margin-left: 15px;
+            z-index: 2;
+        }
+
+        /* 箭頭符號 */
+        .arrow {
+            font-size: 1.5rem;
+            color: var(--saka-orange);
         }
 
         footer {
             margin-top: 40px;
             font-size: 0.8rem;
             font-weight: bold;
-            color: #888;
-            border-top: 2px dashed #ccc;
-            padding-top: 10px;
+            background: var(--saka-black);
+            color: var(--saka-white);
+            display: inline-block;
+            padding: 5px 10px;
+            transform: rotate(-2deg);
         }
 
         /* 手機版響應式調整 */
         @media (max-width: 768px) {
             body {
-                display: block; /* 手機版改為由上而下排列 */
+                display: block;
             }
-            
             .bg-dog {
-                width: 60vw;
-                opacity: 0.9;
-                right: -10px;
+                width: 65vw;
+                right: -15px;
+                opacity: 0.8; /* 手機上稍微透明一點以免太搶眼 */
             }
-
             .container {
                 width: auto;
-                margin: 30px 20px 250px 20px; /* 下方留白給狗狗 */
+                margin: 30px 20px 300px 20px; /* 下方留白給狗狗 */
+                box-shadow: 8px 8px 0px var(--saka-orange);
             }
         }
         /* --- CSS 樣式設定結束 --- */
@@ -177,41 +202,45 @@
 </head>
 <body>
 
-    <img src="dog.jpg" alt="背景狗狗" class="bg-dog">
+    <img src="dog.png" alt="背景狗狗" class="bg-dog">
 
     <div class="container">
-        <div class="title-box">
-            <h1>施老師的自然學習網站</h1>
-        </div>
+        <div class="corner-tag">TEACHER SHIH</div>
         
-        <div class="subtitle">
-            TARGET：學習目標確認。<br>
-            請選擇今日的任務單元。
+        <h1>施老師的<br>自然學習網站</h1>
+        <div class="divider"></div>
+        
+        <div class="intro-text">
+            TARGET: 探索科學奧秘。<br>
+            <span style="background:var(--saka-yellow); color:black; padding:0 5px;">請選擇任務單元：</span>
         </div>
 
         <div class="menu-list">
             
             <a href="https://www.google.com" target="_blank" class="unit-link">
-                <span>UNIT 01. 植物生長</span>
+                <span class="link-text">01. 植物的生長</span>
+                <span class="arrow">➔</span>
             </a>
 
             <a href="#" class="unit-link">
-                <span>UNIT 02. 昆蟲觀察</span>
+                <span class="link-text">02. 昆蟲觀察日記</span>
+                <span class="arrow">➔</span>
             </a>
 
             <a href="#" class="unit-link">
-                <span>UNIT 03. 天氣觀測</span>
-                <span class="badge">HOT</span>
+                <span class="link-text">03. 天氣觀測</span>
+                <span class="arrow">➔</span>
             </a>
 
             <a href="#" class="unit-link">
-                <span>UNIT 04. 電路與磁鐵</span>
+                <span class="link-text">04. 電路大冒險</span>
+                <span class="arrow">➔</span>
             </a>
 
             </div>
 
         <footer>
-            MISSION START // SCIENCE CLASS
+            © SCIENCE DAYS / MISSION START
         </footer>
     </div>
 
