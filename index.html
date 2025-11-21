@@ -1,77 +1,213 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-  <meta charset="UTF-8" />
-  <title>海洋生態系拖拉配對</title>
-  <style>
-    body { font-family: sans-serif; padding: 20px; background: #e0f7fa; }
-    h1 { text-align: center; }
-    .container { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
-    .dropzone, .draggable { 
-      border: 2px dashed #00796b; border-radius: 10px; padding: 10px; width: 180px;
-      min-height: 50px; text-align: center; background: #ffffff; box-shadow: 0 0 5px rgba(0,0,0,0.2);
-    }
-    .draggable { cursor: grab; background-color: #b2dfdb; }
-    .correct { background-color: #a5d6a7; }
-    .incorrect { background-color: #ef9a9a; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>施老師的自然學習網站</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- CSS 樣式設定開始 --- */
+        :root {
+            /* 變數設定：間諜家家酒風格配色 */
+            --loid-green: #4A7C59;       /* 洛伊德西裝綠 */
+            --anya-pink: #F4CCD3;        /* 安妮亞髮色粉 */
+            --yor-red: #9E2A2B;          /* 約兒殺手紅 */
+            --bg-cream: #FDFBF0;         /* 復古米黃底色 */
+            --text-black: #333333;       /* 墨黑文字 */
+            --shadow-color: rgba(0,0,0,0.15);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Zen Maru Gothic', sans-serif;
+            background-color: var(--bg-cream);
+            color: var(--text-black);
+            /* 普普風點點背景設定 */
+            background-image: radial-gradient(var(--loid-green) 15%, transparent 16%),
+                              radial-gradient(var(--loid-green) 15%, transparent 16%);
+            background-size: 40px 40px;
+            background-position: 0 0, 20px 20px;
+            opacity: 1;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* 主要白色卡片容器 */
+        .container {
+            background: #fff;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 20px;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 10px 10px 0px var(--text-black); /* 漫畫風格的硬陰影 */
+            border: 3px solid var(--text-black);
+            margin: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 頂部裝飾線條 */
+        .deco-line {
+            height: 10px;
+            background: repeating-linear-gradient(
+                45deg,
+                var(--yor-red),
+                var(--yor-red) 10px,
+                #fff 10px,
+                #fff 20px
+            );
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+        }
+
+        h1 {
+            color: var(--loid-green);
+            font-weight: 900;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 0px var(--anya-pink);
+            letter-spacing: 2px;
+        }
+
+        /* 圖片區塊設定 */
+        .mascot-img-container {
+            margin: 0 auto 30px auto;
+            width: 250px; /* 您可以調整這裡來改變圖片大小 */
+            height: auto;
+            border-radius: 50%; /* 圓形外框 */
+            border: 5px solid var(--anya-pink);
+            overflow: hidden;
+            background: white;
+            box-shadow: 5px 5px 0px var(--text-black);
+            transition: transform 0.3s ease;
+        }
+
+        .mascot-img-container:hover {
+            transform: scale(1.05) rotate(-3deg); /* 滑鼠移過去會稍微放大旋轉 */
+        }
+
+        .mascot-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 確保圖片填滿圓形且不變形 */
+        }
+
+        /* 按鈕選單區域 */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: 1fr; /* 手機版一行一個 */
+            gap: 15px;
+            padding: 0 20px;
+        }
+
+        @media (min-width: 480px) {
+            .menu-grid {
+                grid-template-columns: 1fr 1fr; /* 電腦版一行兩個 */
+            }
+        }
+
+        /* 按鈕樣式 */
+        .unit-link {
+            display: block;
+            text-decoration: none;
+            background-color: var(--loid-green);
+            color: white;
+            padding: 15px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            border: 2px solid var(--text-black);
+            box-shadow: 4px 4px 0px var(--text-black); /* 按鈕陰影 */
+            transition: all 0.1s ease;
+            position: relative;
+        }
+
+        /* 按鈕互動效果 */
+        .unit-link:hover {
+            background-color: var(--yor-red); /* 滑鼠移上去變紅色 */
+            top: -2px;
+            left: -2px;
+            box-shadow: 6px 6px 0px var(--text-black);
+        }
+
+        .unit-link:active {
+            top: 2px;
+            left: 2px;
+            box-shadow: 2px 2px 0px var(--text-black);
+        }
+
+        /* 按鈕右上的裝飾小字（例如 NEW!） */
+        .badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #FFD700;
+            color: black;
+            font-size: 0.8rem;
+            padding: 3px 8px;
+            border-radius: 10px;
+            border: 2px solid black;
+            transform: rotate(15deg);
+        }
+
+        footer {
+            margin-top: 30px;
+            font-size: 0.8rem;
+            color: #666;
+        }
+        /* --- CSS 樣式設定結束 --- */
+    </style>
 </head>
 <body>
 
-<h1>🌊 海洋生態系配對遊戲</h1>
-<p>請將生物拖曳到正確的分類區域。</p>
+    <div class="container">
+        <div class="deco-line"></div>
+        
+        <h1>施老師的自然學習網站</h1>
 
-<div class="container">
-  <!-- 拖曳區 -->
-  <div class="draggable" draggable="true" id="diatom">矽藻</div>
-  <div class="draggable" draggable="true" id="copepod">橈足類</div>
-  <div class="draggable" draggable="true" id="smallfish">小魚</div>
-  <div class="draggable" draggable="true" id="mediumfish">中型魚類</div>
-  <div class="draggable" draggable="true" id="shark">鯊魚</div>
-  <div class="draggable" draggable="true" id="seal">海豹</div>
-  <div class="draggable" draggable="true" id="decomposer">分解者（細菌）</div>
-</div>
+        <div class="mascot-img-container">
+            <img src="dog.jpg" alt="開心的黃金獵犬">
+        </div>
 
-<hr>
+        <p style="margin-bottom: 20px; font-weight: bold; color: #555;">
+            🌟 歡迎來到自然科學的奇妙世界！請選擇單元：
+        </p>
 
-<div class="container">
-  <!-- 接收區 -->
-  <div class="dropzone" data-match="diatom">🌿 生產者</div>
-  <div class="dropzone" data-match="copepod smallfish">🐟 初級消費者</div>
-  <div class="dropzone" data-match="mediumfish">🐠 次級消費者</div>
-  <div class="dropzone" data-match="seal">🐋 高級消費者</div>
-  <div class="dropzone" data-match="shark">🦈 頂級掠食者</div>
-  <div class="dropzone" data-match="decomposer">🔬 分解者</div>
-</div>
+        <div class="menu-grid">
+            
+            <a href="https://www.google.com" target="_blank" class="unit-link">
+                🌱 植物的生長
+            </a>
 
-<script>
-  const draggables = document.querySelectorAll('.draggable');
-  const dropzones = document.querySelectorAll('.dropzone');
+            <a href="#" class="unit-link">
+                🦋 昆蟲觀察日記
+            </a>
 
-  draggables.forEach(item => {
-    item.addEventListener('dragstart', e => {
-      e.dataTransfer.setData('text/plain', e.target.id);
-    });
-  });
+            <a href="#" class="unit-link">
+                ☁️ 天氣與雲朵
+                <span class="badge">NEW!</span>
+            </a>
 
-  dropzones.forEach(zone => {
-    zone.addEventListener('dragover', e => e.preventDefault());
-    zone.addEventListener('drop', e => {
-      e.preventDefault();
-      const draggedId = e.dataTransfer.getData('text/plain');
-      const draggedEl = document.getElementById(draggedId);
-      if (zone.dataset.match.includes(draggedId)) {
-        zone.classList.remove('incorrect');
-        zone.classList.add('correct');
-        zone.appendChild(draggedEl);
-      } else {
-        zone.classList.remove('correct');
-        zone.classList.add('incorrect');
-        alert('配對錯誤，請再試一次！');
-      }
-    });
-  });
-</script>
+            <a href="#" class="unit-link">
+                🔋 有趣的電路
+            </a>
+
+            </div>
+
+        <footer>
+            © Teacher Shih's Science Class
+        </footer>
+    </div>
 
 </body>
 </html>
