@@ -43,7 +43,6 @@
         /* --- 狗狗背景圖設定 --- */
         .bg-dog {
             position: fixed;
-            /* 修正重點：將層級 (z-index) 設低，確保它在選單下面 */
             z-index: 1; 
             pointer-events: none; 
             
@@ -53,9 +52,11 @@
             max-width: 300px; 
             min-width: 180px;
             
-            /* 左右顛倒 */
             transform: scaleX(-1); 
             transition: all 0.3s ease; 
+
+            /* 修正重點：明確設定背景為透明 */
+            background-color: transparent; 
         }
 
         /* --- 主要內容卡片 --- */
@@ -72,8 +73,6 @@
             border: 5px solid var(--saka-black);
             box-shadow: 12px 12px 0px var(--saka-orange); 
             position: relative;
-            
-            /* 修正重點：將層級 (z-index) 設高，確保它蓋過狗狗 */
             z-index: 20; 
         }
 
@@ -207,80 +206,4 @@
             }
         }
 
-        /* 手機 (iPhone) */
-        @media screen and (max-width: 600px) {
-            .container {
-                width: 82%; 
-                padding: 30px 20px;
-                margin-top: 20px;
-                margin-bottom: 120px; 
-                box-shadow: 8px 8px 0px var(--saka-orange);
-            }
-
-            h1 {
-                font-size: 1.6rem; 
-            }
-
-            .unit-link {
-                padding: 15px 15px;
-                font-size: 1rem;
-            }
-
-            .bg-dog {
-                width: 35vw; 
-                max-width: 160px; 
-                bottom: -5px;
-                right: -5px;
-                opacity: 0.95;
-                transform: scaleX(-1);
-            }
-        }
-        /* --- CSS 樣式設定結束 --- */
-    </style>
-</head>
-<body>
-
-    <img src="dog.png" alt="背景狗狗" class="bg-dog">
-
-    <div class="container">
-        <div class="corner-tag">TEACHER SHIH</div>
-        
-        <h1>施老師的<br>自然學習網站</h1>
-        <div class="divider"></div>
-        
-        <div class="intro-text">
-            TARGET: 探索科學奧秘。<br>
-            <span style="background:var(--saka-yellow); color:black; padding:0 5px;">請選擇任務單元：</span>
-        </div>
-
-        <div class="menu-list">
-            
-            <a href="https://browman75.github.io/digestion/" target="_blank" class="unit-link">
-                <span class="link-text">人體的消化系統</span>
-                <span class="arrow">➔</span>
-            </a>
-
-            <a href="https://browman75.github.io/scale_course/" target="_blank" class="unit-link">
-                <span class="link-text">尺度</span>
-                <span class="arrow">➔</span>
-            </a>
-
-            <a href="https://yihrulee.github.io/plant-transport/" target="_blank" class="unit-link">
-                <span class="link-text">植物的運輸</span>
-                <span class="arrow">➔</span>
-            </a>
-
-            <a href="https://browman75.github.io/bio-ecosystem/" target="_blank" class="unit-link">
-                <span class="link-text">生態系的種類</span>
-                <span class="arrow">➔</span>
-            </a>
-
-        </div>
-
-        <footer>
-            © SCIENCE DAYS / MISSION START
-        </footer>
-    </div>
-
-</body>
-</html>
+        /* 手機
